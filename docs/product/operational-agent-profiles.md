@@ -50,7 +50,16 @@ The chief of staff is also a reusable operational agent profile.
 
 Implementation correction:
 
-- It should live under `agents/profiles/chief-of-staff.md`.
-- Harness adapters should live under `agents/adapters/<harness>/`.
+- It should live under `agents/chief-of-staff/agent.yaml`.
 - It must not be modeled as a skill.
-- Supporting workflow mechanics should live under `agents/scripts/chief-of-staff/` and `agents/references/chief-of-staff/`.
+- Supporting workflow mechanics should live under `agents/chief-of-staff/scripts/` and `agents/chief-of-staff/references/`.
+
+Later correction:
+
+- Profiles should stand alone as artifacts that generic profile tooling can understand.
+- Agent-owned material should be colocated under `agents/<agent-slug>/`.
+- The canonical definition should be one file at `agents/<agent-slug>/agent.yaml`.
+- Agent-specific `scripts/` and `references/` should live beside that definition
+  and be installed into `~/.agents/homes/<agent-slug>/`.
+- Do not require `agents/adapters/codex/` just because Codex is one possible target harness.
+- Harness-specific adapter files should be exceptional, not part of the default profile shape.

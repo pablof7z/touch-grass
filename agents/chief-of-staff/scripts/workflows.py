@@ -14,8 +14,8 @@ from pathlib import Path
 
 DEFAULT_HOME = Path("~/.agents/homes/chief-of-staff").expanduser()
 SCRIPT_DIR = Path(__file__).resolve().parent
-AGENTS_DIR = SCRIPT_DIR.parent.parent
-DEFAULTS_DIR = AGENTS_DIR / "references" / "chief-of-staff" / "default-workflows"
+AGENT_DIR = SCRIPT_DIR.parent
+DEFAULTS_DIR = AGENT_DIR / "references" / "default-workflows"
 
 
 def main() -> int:

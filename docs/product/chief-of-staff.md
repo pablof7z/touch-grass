@@ -19,9 +19,10 @@ The user clarified:
 
 Implementation correction:
 
-- The chief of staff should exist as a reusable operational agent profile under `agents/profiles/chief-of-staff.md`, with harness adapters under `agents/adapters/`.
+- The chief of staff should exist as a reusable operational agent definition under `agents/chief-of-staff/agent.yaml`.
 - The chief of staff must not be modeled as a skill.
-- Supporting workflow machinery belongs under `agents/scripts/chief-of-staff/` and `agents/references/chief-of-staff/`, not under `skills/`.
+- The chief of staff should not require a Codex adapter. Generic agent-profile tooling should understand the canonical profile directly.
+- Supporting workflow machinery belongs under `agents/chief-of-staff/scripts/` and `agents/chief-of-staff/references/`, not under `skills/`.
 
 ## Source Of Truth And Tracking
 

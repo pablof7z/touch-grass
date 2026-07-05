@@ -26,7 +26,7 @@ npx --yes skills add pablof7z/touch-grass --skill gh-plan-pr --yes
 
 Restart the agent session after installing so the new skill is loaded.
 
-`npx skills` installs skills. Operational agent profiles in `agents/profiles/` are separate artifacts.
+`npx skills` installs skills. Operational agents under `agents/<slug>/` are separate artifacts.
 
 ## Agent Profiles
 
@@ -38,7 +38,7 @@ The tracking repo stays organized around projects and decisions, with the curren
 
 It also maintains script-managed workflows under the chief of staff's home directory so new request types become repeatable without making the user manage process.
 
-The reusable agent profile lives at `agents/profiles/chief-of-staff.md`.
+The reusable agent definition lives at `agents/chief-of-staff/agent.yaml`.
 
 ### `ios-tester`
 

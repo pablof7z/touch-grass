@@ -12,10 +12,9 @@ The repository should grow as a coherent set of skills and reusable agent profil
 - `skills/<skill-name>/scripts/`: Deterministic automation that agents should call instead of reimplementing.
 - `skills/<skill-name>/references/`: Detailed schemas and workflow references loaded only when needed.
 - `skills/<skill-name>/agents/openai.yaml`: UI-facing metadata for the skill.
-- `agents/profiles/<profile-name>.md`: Canonical operational agent profile definitions.
-- `agents/adapters/<harness>/<profile-name>.md`: Harness-specific installation and runtime notes for a profile.
-- `agents/scripts/<profile-name>/`: Deterministic automation that belongs to an agent profile rather than a skill.
-- `agents/references/<profile-name>/`: Profile-specific default notes, templates, and workflow references.
+- `agents/<agent-slug>/agent.yaml`: Canonical operational agent definition with metadata, model preferences, skills, resources, and instructions.
+- `agents/<agent-slug>/scripts/`: Deterministic automation that belongs to that agent rather than a skill.
+- `agents/<agent-slug>/references/`: Agent-specific default notes, templates, and workflow references.
 - `docs/product/`: Product notes that capture the underlying ideas, decisions, corrections, and changes of mind behind the skills.
 
 ## Product Notes
@@ -37,9 +36,10 @@ The repository should grow as a coherent set of skills and reusable agent profil
 ## Agent Profile Design Principles
 
 - Do not model an operational agent profile as a skill.
-- Put reusable agent identity, responsibilities, source-of-truth rules, and boundaries in `agents/profiles/`.
-- Put harness-specific execution details in `agents/adapters/`.
-- Put supporting scripts and references under `agents/scripts/` and `agents/references/` unless they are genuinely reusable skills.
+- Put reusable agent identity, responsibilities, source-of-truth rules, boundaries, and resource declarations in `agents/<agent-slug>/agent.yaml`.
+- Keep profiles standalone by default so generic profile installers can understand them without a harness adapter.
+- Add harness-specific material only when a target cannot reasonably derive its behavior from the canonical profile.
+- Put supporting scripts and references under `agents/<agent-slug>/scripts/` and `agents/<agent-slug>/references/` unless they are genuinely reusable skills.
 
 ## Development Workflow
 
