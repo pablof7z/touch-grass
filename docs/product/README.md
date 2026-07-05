@@ -6,7 +6,11 @@ Use these notes as source material for future website, positioning, and workflow
 
 ## Files
 
-- `touch-grass-flow-notes.md`: Living notes on the intended workflow, principles, and product constraints.
+- `foundations.md`: Repository purpose, naming, positioning, and public-facing product constraints.
+- `gh-plan-pr.md`: Planning PR workflow, proceed/pause behavior, hosted pages, TTS boundary, and publisher expectations.
+- `operational-agent-profiles.md`: Reusable operational agent profiles, rejected meta-profile direction, and iOS profile notes.
+- `chief-of-staff.md`: Chief-of-staff operational agent, tracking model, and workflow memory.
+- `open-questions.md`: Cross-cutting unresolved product questions.
 
 ## Note-Taking Rules
 
@@ -16,3 +20,4 @@ Use these notes as source material for future website, positioning, and workflow
 - Include rejected or corrected directions when they clarify product boundaries.
 - Do not delete older notes when the user changes direction. Add a clarification because the change itself may reveal useful product context.
 - Do not describe these as "Codex skills"; the requested language is "skills."
+- Do not collapse everything into a single chronology file. Split notes by product area so agents can load focused context.
