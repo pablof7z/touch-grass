@@ -153,6 +153,40 @@ Product implication:
 
 - Future agent profiles, if added, should likely be operational agents inside the `touch-grass` flow, not maintainers for the repo itself, unless explicitly requested.
 
+## Chief Of Staff Operational Agent
+
+The user requested a `chief-of-staff` profile and clarified that the chief of staff should become an operational agent inside the `touch-grass` flow.
+
+The user clarified:
+
+- The role should be modeled as chief of staff, not as executive assistant, COO, strategist, project manager, editor, or another substitute role.
+- It should protect the user's time and focus.
+- It should oversee what other agents across all projects are working on.
+- It should compare agent activity against the priorities the user has provided.
+- It should be proactive, give updates, and escalate when something requires the user's input.
+- It will work closely with `~/Work/tenex-edge` as the communications fabric.
+- It will also work with `~/touch-grass` agents, which are a work in progress and expected to expand.
+- The chief of staff will be committed to `~/touch-grass`.
+
+The user clarified source-of-truth and tracking expectations:
+
+- Within the `touch-grass` flow, GitHub is the source of truth.
+- The chief of staff should have its own repo with the user.
+- That repo should track things, including links to other repos where project work is actually happening.
+- The repo should also track whatever else is discovered that the chief of staff should track.
+- The chief-of-staff repo should be organized around projects and decisions.
+- For updates, the chief of staff should keep a report updated for today.
+- The current-day report should be linked from the top-level `README.md`.
+- The report should be organized in files.
+- The user has ADHD and wants the chief of staff to handle polish and organization concerns.
+- Escalation criteria should be left unspecified by default because they are up to the user and should be modeled per user's chief of staff.
+- Autonomous decision boundaries are also per-user constraints and should not be hard-coded into the general chief-of-staff agent approach.
+
+Product clarification:
+
+- This chief-of-staff profile is an operational agent inside the `touch-grass` flow, not the previously rejected meta profile for maintaining `touch-grass` itself.
+- The general chief-of-staff agent should separate invariant approach from per-user operating-model configuration.
+
 ## Explicit Non-Goals Or Avoidances
 
 - Do not commit generated MP3 files to the repo.
@@ -160,10 +194,37 @@ Product implication:
 - Do not specify the later cross-agent communication mechanism inside `gh-plan-pr`.
 - Do not call the project artifacts "Codex skills."
 - Do not preserve the removed meta agent profile as part of the repo.
+- Do not treat reusable agent profiles as local machine setup. They belong in
+  `~/touch-grass`; they should not install TENEX agents, mutate `~/.tenex`, or
+  pre-create agent home directories on the author's computer.
+
+## iOS Operational Agent Profiles
+
+The user requested two reusable Codex-oriented operational profiles:
+
+- `ios-tester`: an execution-focused black-box iOS tester using
+  `xcodebuildmcp-cli`, a simple `gpt-5.5` medium-effort model, tenex-edge
+  replies, and per-project notes under
+  `~/.agents/homes/ios-tester/<project>/notes`.
+- `ios-ux-ui-critic`: the same simulator and tenex-edge flow, but focused on
+  UX/UI product critique with a stronger model setting such as `gpt-5.5` xhigh
+  or Opus, and notes under
+  `~/.agents/homes/ios-ux-ui-critic/<project>/notes`.
+
+The user emphasized that both profiles must be reusable artifacts in
+`~/touch-grass`, not configuration applied to the current computer. The profiles
+must say that each runtime agent manages its own home directory and notes.
+
+Both agents should avoid reading code entirely. They should interact with the
+installed app like users through an iOS simulator, use their own notes as prior
+black-box memory, and report back through tenex-edge while mentioning whoever
+asked for the work.
 
 ## Open Questions
 
 - What exact Blossom authentication/signing setup should the publisher script assume?
 - What should the next operational workflow agents be?
-- Should the repo define a neutral operational agent-profile schema later, or wait until a concrete workflow needs one?
+- Should the repo define a neutral operational agent-profile schema based on the concrete chief-of-staff workflow?
 - What should the website say beyond the implementation details already committed?
+- What should the chief-of-staff tracking repo schema look like?
+- What escalation policy should an individual user's chief of staff use?

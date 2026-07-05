@@ -6,6 +6,12 @@ The project bias is practical: agents should make progress by default, publish u
 
 ## Skills
 
+### `chief-of-staff`
+
+Maintains a cross-project operating picture for agent work. It tracks projects, decisions, open loops, linked repositories, active agents, and daily reports so the user can focus on judgment instead of coordination overhead.
+
+The tracking repo stays organized around projects and decisions, with the current-day report linked from its top-level `README.md`.
+
 ### `gh-plan-pr`
 
 Publishes planning PRs for complex assigned work. The agent supplies structured planning content and a TTS-friendly narration; the bundled script handles the mechanics:
