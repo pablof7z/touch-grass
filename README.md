@@ -4,6 +4,30 @@
 
 The project bias is practical: agents should make progress by default, publish useful artifacts, ask for human input only when it matters, and leave a clear trail of decisions.
 
+## Install Skills
+
+Inspect available skills:
+
+```bash
+npx --yes skills add pablof7z/touch-grass --list
+```
+
+Install `gh-plan-pr` globally:
+
+```bash
+npx --yes skills add pablof7z/touch-grass --skill gh-plan-pr --global --yes
+```
+
+Install `gh-plan-pr` into the current project:
+
+```bash
+npx --yes skills add pablof7z/touch-grass --skill gh-plan-pr --yes
+```
+
+Restart the agent session after installing so the new skill is loaded.
+
+`npx skills` installs skills. Operational agent profiles in `agents/profiles/` are separate artifacts.
+
 ## Agent Profiles
 
 ### `chief-of-staff`

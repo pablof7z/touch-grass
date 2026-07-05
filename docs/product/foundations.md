@@ -23,6 +23,7 @@ The user requested:
 - Create, commit, publish, and document the first skill in the repo.
 
 The user later asked how to install it with `npx skills`.
+The user then requested adding the `npx skills` install commands to the README.
 
 The user later clarified that the repository can also contain operational agent
 profiles. Those profiles must not be collapsed into skills because a profile is
