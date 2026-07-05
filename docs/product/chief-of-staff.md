@@ -17,6 +17,12 @@ The user clarified:
 - It will also work with `~/touch-grass` agents, which are a work in progress and expected to expand.
 - The chief of staff will be committed to `~/touch-grass`.
 
+Implementation correction:
+
+- The chief of staff should exist as a reusable operational agent profile under `agents/profiles/chief-of-staff.md`, with harness adapters under `agents/adapters/`.
+- The chief of staff must not be modeled as a skill.
+- Supporting workflow machinery belongs under `agents/scripts/chief-of-staff/` and `agents/references/chief-of-staff/`, not under `skills/`.
+
 ## Source Of Truth And Tracking
 
 The user clarified source-of-truth and tracking expectations:
@@ -42,6 +48,7 @@ Product clarification:
 
 - This chief-of-staff profile is an operational agent inside the `touch-grass` flow, not the previously rejected meta profile for maintaining `touch-grass` itself.
 - The general chief-of-staff agent should separate invariant approach from per-user operating-model configuration.
+- The chief of staff is a profile because it is an agent identity and operating model, not a capability package.
 
 ## Workflow Memory
 

@@ -24,6 +24,11 @@ The user requested:
 
 The user later asked how to install it with `npx skills`.
 
+The user later clarified that the repository can also contain operational agent
+profiles. Those profiles must not be collapsed into skills because a profile is
+an agent identity and operating model, while a skill is a loadable capability or
+workflow.
+
 ## Positioning Corrections
 
 The user corrected:

@@ -43,3 +43,14 @@ The user requested two reusable Codex-oriented operational profiles:
 The user emphasized that both profiles must be reusable artifacts in `~/touch-grass`, not configuration applied to the current computer. The profiles must say that each runtime agent manages its own home directory and notes.
 
 Both agents should avoid reading code entirely. They should interact with the installed app like users through an iOS simulator, use their own notes as prior black-box memory, and report back through tenex-edge while mentioning whoever asked for the work.
+
+## Chief Of Staff Profile
+
+The chief of staff is also a reusable operational agent profile.
+
+Implementation correction:
+
+- It should live under `agents/profiles/chief-of-staff.md`.
+- Harness adapters should live under `agents/adapters/<harness>/`.
+- It must not be modeled as a skill.
+- Supporting workflow mechanics should live under `agents/scripts/chief-of-staff/` and `agents/references/chief-of-staff/`.

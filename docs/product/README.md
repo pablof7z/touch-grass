@@ -4,6 +4,10 @@ This folder captures product thinking for `touch-grass`.
 
 Use these notes as source material for future website, positioning, and workflow documentation. Keep them grounded in what the user explicitly said or explicitly accepted in conversation. Do not add inferred strategy, invented roadmap, or polished marketing claims here unless they are clearly marked as proposals.
 
+Important product boundary: operational agent profiles are not skills. A profile
+defines a reusable agent identity and operating model; a skill defines a
+capability or workflow an agent can load.
+
 ## Files
 
 - `foundations.md`: Repository purpose, naming, positioning, and public-facing product constraints.
