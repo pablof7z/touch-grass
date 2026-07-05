@@ -12,6 +12,15 @@ The repository should grow as a coherent set of skills that work well together r
 - `skills/<skill-name>/scripts/`: Deterministic automation that agents should call instead of reimplementing.
 - `skills/<skill-name>/references/`: Detailed schemas and workflow references loaded only when needed.
 - `skills/<skill-name>/agents/openai.yaml`: UI-facing metadata for the skill.
+- `docs/product/`: Product notes that capture the underlying ideas, decisions, corrections, and changes of mind behind the skills.
+
+## Product Notes
+
+- Keep `docs/product/` up to date as the product model evolves.
+- Capture explicit user statements, agreements, corrections, and changes of mind.
+- Do not delete older product notes merely because the direction changed. A changed mind is itself useful context because it can reveal a sharper product boundary, pain point, or principle.
+- When direction changes, add a clarifying note that records the new position and why the earlier idea was changed or rejected if that reason was stated.
+- Do not hallucinate product strategy. Mark extrapolation as a proposal, not a fact.
 
 ## Skill Design Principles
 
