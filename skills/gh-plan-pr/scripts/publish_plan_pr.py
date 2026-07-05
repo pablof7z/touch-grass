@@ -288,29 +288,24 @@ def render_pr_body(payload: dict[str, Any], page_url: str, audio_url: str) -> st
     diagram = payload.get("diagram_mermaid")
     parts = [
         f"# {payload['title']}",
-        "## 1. Very High Level",
+        f"Hosted plan page: {page_url}",
+        "## Very High Level",
         str(payload["high_level_plan"]).strip(),
     ]
     if diagram:
         parts.append(f"```mermaid\n{str(diagram).strip()}\n```")
     parts.extend(
         [
-            f"Detailed plan: `docs/plans/{payload['slug']}/plan.md`",
-            f"Hosted plan page: {page_url}",
-            "## 2. TTS Version",
-            "Use the hosted plan page for the audio player, or open the generated narration directly:",
-            f"[Open the hosted audio player]({page_url})",
-            f"[Open the narration]({audio_url})",
-            "## 3. Existing Rules Or ADRs",
-            markdown_bullets(as_list(payload["rules_adr_check"])),
-            "## 4. Possible Rule Or ADR Violation",
-            markdown_bullets(as_list(payload["possible_rule_loosening"])),
-            "## 5. Possible Rule Tightening",
-            markdown_bullets(as_list(payload["possible_rule_tightening"])),
-            "## 6. Alternatives Considered",
-            markdown_bullets(as_list(payload["alternatives_considered"])),
-            "## 7. Certainty",
-            f"{payload['certainty_percent']} percent. Decision: `{payload['decision']}`.",
+            "## Review Links",
+            "\n".join(
+                [
+                    f"- Hosted plan page: {page_url}",
+                    f"- Detailed plan: `docs/plans/{payload['slug']}/plan.md`",
+                    f"- Narration: {audio_url}",
+                    f"- Certainty: {payload['certainty_percent']} percent",
+                    f"- Decision: `{payload['decision']}`",
+                ]
+            ),
         ]
     )
     return "\n\n".join(parts).strip() + "\n"
@@ -685,12 +680,14 @@ def create_or_update_pr(root: Path, payload: dict[str, Any], body: str) -> str:
     if existing.returncode == 0 and existing.stdout.strip():
         pr_url = existing.stdout.strip()
         run(["gh", "pr", "edit", pr_url, "--title", payload["pr_title"], "--body-file", "-"], cwd=root, input_text=body)
+        run(["gh", "pr", "ready", pr_url, "--undo"], cwd=root, check=False)
         return pr_url
     created = run(
         [
             "gh",
             "pr",
             "create",
+            "--draft",
             "--base",
             payload["base_branch"],
             "--head",
@@ -744,6 +741,7 @@ def main() -> None:
                     "title": payload["title"],
                     "slug": payload["slug"],
                     "branch": payload["branch"],
+                    "draft_pr": True,
                     "decision": payload["decision"],
                     "certainty_percent": payload["certainty_percent"],
                 },
@@ -783,6 +781,7 @@ def main() -> None:
             "plan_page_url": page_url,
             "audio_url": audio_url,
             "branch": payload["branch"],
+            "draft_pr": True,
         }
     )
 

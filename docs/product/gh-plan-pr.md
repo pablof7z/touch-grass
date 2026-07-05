@@ -10,6 +10,9 @@ The user specified:
 - If a task is complex, the agent should create a PR with an architectural/design plan.
 - The PR body should be concise, bullet-pointed, and skimmable.
 - More nuanced and detailed planning belongs in a documentation file committed in the PR.
+- The PR template should be much more minimal: only the very high-level material at the top.
+- The published hosted page should carry the weight of the plan data.
+- Planning PRs should open as draft PRs to avoid CI running.
 
 Required plan structure:
 
