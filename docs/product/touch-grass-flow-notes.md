@@ -187,6 +187,25 @@ Product clarification:
 - This chief-of-staff profile is an operational agent inside the `touch-grass` flow, not the previously rejected meta profile for maintaining `touch-grass` itself.
 - The general chief-of-staff agent should separate invariant approach from per-user operating-model configuration.
 
+## Chief Of Staff Workflow Memory
+
+The user brainstormed a workflow-memory layer for the chief of staff:
+
+- When the user asks the chief of staff to do something it has not done before, the agent should create a workflow in its home directory.
+- The workflow directory should be `~/.agents/homes/chief-of-staff/workflows/`.
+- Workflows should be maintained by a script.
+- The chief of staff should start sessions by running a script that lists all workflows and the one-line summary of when to use each one.
+- A default workflow should ship as `unknown-task`.
+- `unknown-task` applies when the agent is asked to perform a new task and has no matching workflow.
+- For simple tasks, the chief of staff should not ask annoying follow-up questions; it should err on the side of doing rather than asking.
+- The user framed this as "ask for forgiveness instead of permission."
+- The agent should capture the initial workflow, execute what the user wanted, and review how it went so the workflow can be changed, amended, or improved.
+- The workflow layer should learn what user phrases such as "go and do marketing research" or "report a bug" mean in practice for that user's chief of staff.
+
+Product clarification:
+
+- Workflow capture should not be treated as a command to add bureaucracy. It should help the chief of staff learn repeatable patterns from actual work.
+
 ## Explicit Non-Goals Or Avoidances
 
 - Do not commit generated MP3 files to the repo.

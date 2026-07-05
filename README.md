@@ -12,6 +12,8 @@ Maintains a cross-project operating picture for agent work. It tracks projects, 
 
 The tracking repo stays organized around projects and decisions, with the current-day report linked from its top-level `README.md`.
 
+It also maintains script-managed workflows under the chief of staff's home directory so new request types become repeatable without making the user manage process.
+
 ### `gh-plan-pr`
 
 Publishes planning PRs for complex assigned work. The agent supplies structured planning content and a TTS-friendly narration; the bundled script handles the mechanics:
