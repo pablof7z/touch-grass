@@ -1,6 +1,6 @@
 # touch-grass
 
-`touch-grass` is a public set of Codex skills for agents that need more autonomy, better agency, and cleaner human collaboration.
+`touch-grass` is a public set of skills for agents that need more autonomy, better agency, and cleaner human collaboration.
 
 The project bias is practical: agents should make progress by default, publish useful artifacts, ask for human input only when it matters, and leave a clear trail of decisions.
 

@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-`touch-grass` is a public collection of interoperable Codex skills for increasing agent autonomy, agency, and human collaboration. The goal is to make agents better at doing real work end to end while keeping humans in the loop at the right moments: when judgment, architectural feedback, approval, or social coordination matters.
+`touch-grass` is a public collection of interoperable skills for increasing agent autonomy, agency, and human collaboration. The goal is to make agents better at doing real work end to end while keeping humans in the loop at the right moments: when judgment, architectural feedback, approval, or social coordination matters.
 
 The repository should grow as a coherent set of skills that work well together rather than as isolated utilities. Prefer skill boundaries that let one skill produce structured output another skill can consume.
 
@@ -24,9 +24,8 @@ The repository should grow as a coherent set of skills that work well together r
 ## Development Workflow
 
 - Inspect files with `rg` and `sed` before editing.
-- Edit files with `apply_patch` when working as Codex.
-- Validate skill metadata before committing:
-  - `python3 /Users/customer/.codex/skills/.system/skill-creator/scripts/quick_validate.py skills/<skill-name>`
+- Use the repository's normal patch/edit workflow; avoid unrelated churn.
+- Validate skill metadata before committing when a compatible validator is available.
 - Test scripts with `--dry-run` or sample payloads when available.
 
 ## Code Style
