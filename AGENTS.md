@@ -12,6 +12,8 @@ The repository should grow as a coherent set of skills that work well together r
 - `skills/<skill-name>/scripts/`: Deterministic automation that agents should call instead of reimplementing.
 - `skills/<skill-name>/references/`: Detailed schemas and workflow references loaded only when needed.
 - `skills/<skill-name>/agents/openai.yaml`: UI-facing metadata for the skill.
+- `agents/profiles/*.agent.yaml`: Neutral source definitions for reusable agent profiles.
+- `.claude/agents/` and `.opencode/agents/`: Harness-specific adapters generated or maintained from `agents/profiles/`.
 
 ## Skill Design Principles
 

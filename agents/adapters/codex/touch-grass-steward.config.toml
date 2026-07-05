@@ -1,0 +1,14 @@
+# Template for a user-level Codex named profile.
+#
+# Codex named profiles are loaded from:
+#   $CODEX_HOME/touch-grass-steward.config.toml
+# or, when CODEX_HOME is unset:
+#   ~/.codex/touch-grass-steward.config.toml
+#
+# Then run:
+#   codex --profile touch-grass-steward
+#
+# Keep this file as an adapter template, not the canonical source. The source
+# profile is agents/profiles/touch-grass-steward.agent.yaml.
+
+model_reasoning_effort = "high"
