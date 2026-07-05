@@ -1,0 +1,27 @@
+{
+  "title": "Field Clinic Intake Sync",
+  "slug": "field-clinic-intake-sync",
+  "high_level_plan": "Add an offline-first intake lane for field clinic teams. Mobile clients write signed intake packets into an encrypted local outbox, a sync adapter retries delivery, and the server validates, deduplicates, and stages packets for clinical review before patient-record promotion.",
+  "diagram_mermaid": "flowchart LR\n  Mobile[Mobile intake] --> Outbox[Encrypted outbox]\n  Outbox --> API[Sync API]\n  API --> Review[Review queue]\n  Review --> Record[Patient record]\n  API --> Audit[Audit log]",
+  "tts_friendly_version": "This plan adds offline intake syncing for field clinic teams. The mobile app saves encrypted intake packets locally, then a sync adapter retries delivery when the network returns. The server validates each packet, records an auditable receipt, removes duplicates, and sends accepted packets to a clinical review queue. The patient record is only updated through the existing audited path after review.",
+  "rules_adr_check": [
+    "Satisfies boundary-first planning because client, sync API, review queue, and patient record boundaries are explicit.",
+    "Satisfies portable-core expectations because packet validation and sync protocol do not depend on a vendor-specific queue or database feature.",
+    "Satisfies auditability because receipt, review, promotion, duplicate detection, and rejection are auditable."
+  ],
+  "possible_rule_loosening": [
+    "Low risk. Temporary staging storage is not a new source of truth.",
+    "No rule needs loosening."
+  ],
+  "possible_rule_tightening": [
+    "Consider requiring offline workflows to define idempotency, conflict policy, and reconciliation owner before implementation."
+  ],
+  "alternatives_considered": [
+    "Direct mobile write to patient record: simpler, weaker conflict control.",
+    "General offline framework: broader dependency surface.",
+    "CSV export/import: familiar, poor audit and latency."
+  ],
+  "certainty_percent": 88,
+  "decision": "ready",
+  "detailed_plan": "## Summary\n\nBuild an offline-first intake sync lane for field clinic teams that collect patient intake data without reliable connectivity.\n\n## Rollout\n\n1. Add packet schema, validation tests, and feature flag.\n2. Implement local outbox and sync adapter behind the flag.\n3. Add server receipt, dedupe, and review queue.\n4. Run in shadow mode with packet receipts but no patient record promotion.\n5. Enable promotion for one clinic group, then expand after audit review.\n\n## Validation\n\nTest packet validation, idempotency, retry classification, duplicate packets, delayed packets, rejected authorization, and review promotion.\n\n## Rollback\n\nDisable the feature flag, stop accepting new sync packets, and keep existing receipts available for audit."
+}

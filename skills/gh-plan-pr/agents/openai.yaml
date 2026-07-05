@@ -1,0 +1,4 @@
+interface:
+  display_name: "GitHub Plan PR"
+  short_description: "Publish planning PRs with hosted audio pages"
+  default_prompt: "Use $gh-plan-pr to evaluate assigned work and publish a concise planning PR when the task needs architectural review."
