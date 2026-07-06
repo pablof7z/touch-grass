@@ -4,29 +4,29 @@
 
 The project bias is practical: agents should make progress by default, publish useful artifacts, ask for human input only when it matters, and leave a clear trail of decisions.
 
-## Install Skills
+## Install Agent Profiles
 
-Inspect available skills:
-
-```bash
-npx --yes skills add pablof7z/touch-grass --list
-```
-
-Install `gh-plan-pr` globally:
+Inspect available profiles:
 
 ```bash
-npx --yes skills add pablof7z/touch-grass --skill gh-plan-pr --global --yes
+npx awesome-agents add pablof7z/touch-grass --list
 ```
 
-Install `gh-plan-pr` into the current project:
+Install the planning agent for Codex:
 
 ```bash
-npx --yes skills add pablof7z/touch-grass --skill gh-plan-pr --yes
+npx awesome-agents add pablof7z/touch-grass --agent planning-agent --harness codex --global
 ```
 
-Restart the agent session after installing so the new skill is loaded.
+Install another profile or harness by changing `--agent` and `--harness`:
 
-`npx skills` installs skills. Operational agents under `agents/<slug>/` are separate artifacts.
+```bash
+npx awesome-agents add pablof7z/touch-grass --agent chief-of-staff --harness tenex-edge
+```
+
+`awesome-agents` installs operational agent profiles from `agents/<slug>/`.
+Agent-owned scripts and references are installed under
+`~/.agents/homes/<slug>/`.
 
 ## Agent Profiles
 
@@ -40,6 +40,18 @@ It also maintains script-managed workflows under the chief of staff's home direc
 
 The reusable agent definition lives at `agents/chief-of-staff/agent.yaml`.
 
+### `planning-agent`
+
+Creates architecture/design planning PRs for complex implementation work. It
+scans repository constraints, writes a concise plan payload, renders hosted
+review artifacts through its bundled publisher script, opens or updates a draft
+PR, and decides whether implementation should proceed or pause for feedback.
+
+The planning behavior is an operational agent profile, not a skill. Its reusable
+definition lives at `agents/planning-agent/agent.yaml`, with agent-owned support
+material under `agents/planning-agent/scripts/` and
+`agents/planning-agent/references/`.
+
 ### `ios-tester`
 
 Black-box iOS testing profile that uses simulator tooling and project notes to test installed apps like a user.
@@ -47,21 +59,6 @@ Black-box iOS testing profile that uses simulator tooling and project notes to t
 ### `ios-ux-ui-critic`
 
 Black-box iOS UX/UI critique profile that uses simulator tooling and project notes to inspect the installed app experience.
-
-## Skills
-
-### `gh-plan-pr`
-
-Publishes planning PRs for complex assigned work. The agent supplies structured planning content and a TTS-friendly narration; the bundled script handles the mechanics:
-
-- dependency checks and naive one-shot installs,
-- TTS generation,
-- audio upload to Blossom,
-- GitHub Pages plan rendering,
-- planning PR creation or update,
-- proceed/pause PR comments.
-
-The agent does not need to know about audio formats, Blossom, `nak`, or GitHub Pages internals.
 
 ## Repository Goals
 

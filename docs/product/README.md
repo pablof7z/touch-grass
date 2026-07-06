@@ -11,7 +11,7 @@ capability or workflow an agent can load.
 ## Files
 
 - `foundations.md`: Repository purpose, naming, positioning, and public-facing product constraints.
-- `gh-plan-pr.md`: Planning PR workflow, proceed/pause behavior, hosted pages, TTS boundary, and publisher expectations.
+- `planning-agent.md`: Planning PR agent workflow, proceed/pause behavior, hosted pages, TTS boundary, and publisher expectations.
 - `operational-agent-profiles.md`: Reusable operational agent profiles, rejected meta-profile direction, and iOS profile notes.
 - `chief-of-staff.md`: Chief-of-staff operational agent, tracking model, and workflow memory.
 - `open-questions.md`: Cross-cutting unresolved product questions.

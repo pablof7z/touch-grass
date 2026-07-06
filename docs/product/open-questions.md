@@ -2,7 +2,7 @@
 
 These are unresolved product questions that cut across the focused product notes.
 
-## Planning PR Skill
+## Planning Agent
 
 - What exact Blossom authentication/signing setup should the publisher script assume?
 

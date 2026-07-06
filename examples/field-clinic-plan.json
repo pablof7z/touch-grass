@@ -2,7 +2,99 @@
   "title": "Field Clinic Intake Sync",
   "slug": "field-clinic-intake-sync",
   "high_level_plan": "Add an offline-first intake lane for field clinic teams. Mobile clients write signed intake packets into an encrypted local outbox, a sync adapter retries delivery, and the server validates, deduplicates, and stages packets for clinical review before patient-record promotion.",
-  "diagram_mermaid": "flowchart LR\n  Mobile[Mobile intake] --> Outbox[Encrypted outbox]\n  Outbox --> API[Sync API]\n  API --> Review[Review queue]\n  Review --> Record[Patient record]\n  API --> Audit[Audit log]",
+  "high_level_points": [
+    {
+      "label": "Client boundary",
+      "text": "Mobile clients write signed intake packets into an encrypted local outbox.",
+      "highlight": true
+    },
+    {
+      "label": "Sync boundary",
+      "text": "A retrying adapter delivers packets when connectivity returns without writing directly to patient records."
+    },
+    {
+      "label": "Server boundary",
+      "text": "The server validates, deduplicates, audits, and stages packets for clinical review before promotion."
+    }
+  ],
+  "boundary_visualization": {
+    "description": "The new lane is the local outbox and sync API boundary. The patient record remains behind the existing audited review path.",
+    "changes": [
+      {
+        "status": "new",
+        "label": "Encrypted outbox",
+        "description": "Adds a durable client-side handoff for offline packets."
+      },
+      {
+        "status": "changed",
+        "label": "Sync API",
+        "description": "Accepts signed packet receipts and deduplicates retries."
+      },
+      {
+        "status": "existing",
+        "label": "Patient record",
+        "description": "Still changes only after clinical review."
+      }
+    ],
+    "current_diagram_mermaid": "flowchart LR\n  Mobile[Mobile intake] --> API[Online API]\n  API --> Record[Patient record]\n  API --> Audit[Audit log]",
+    "proposed_diagram_mermaid": "flowchart LR\n  Mobile[Mobile intake] --> Outbox[Encrypted outbox]\n  Outbox --> API[Sync API]\n  API --> Review[Review queue]\n  Review --> Record[Patient record]\n  API --> Audit[Audit log]",
+    "graph": {
+      "label": "Boundary graph",
+      "nodes": [
+        {
+          "id": "Mobile",
+          "label": "Mobile intake",
+          "status": "existing"
+        },
+        {
+          "id": "Outbox",
+          "label": "Encrypted outbox",
+          "status": "new"
+        },
+        {
+          "id": "API",
+          "label": "Sync API",
+          "status": "changed"
+        },
+        {
+          "id": "Review",
+          "label": "Review queue",
+          "status": "new"
+        },
+        {
+          "id": "Record",
+          "label": "Patient record",
+          "status": "existing"
+        }
+      ],
+      "links": [
+        {
+          "source": "Mobile",
+          "target": "Outbox",
+          "label": "stores",
+          "status": "new"
+        },
+        {
+          "source": "Outbox",
+          "target": "API",
+          "label": "syncs",
+          "status": "new"
+        },
+        {
+          "source": "API",
+          "target": "Review",
+          "label": "stages",
+          "status": "changed"
+        },
+        {
+          "source": "Review",
+          "target": "Record",
+          "label": "promotes",
+          "status": "existing"
+        }
+      ]
+    }
+  },
   "tts_friendly_version": "This plan adds offline intake syncing for field clinic teams. The mobile app saves encrypted intake packets locally, then a sync adapter retries delivery when the network returns. The server validates each packet, records an auditable receipt, removes duplicates, and sends accepted packets to a clinical review queue. The patient record is only updated through the existing audited path after review.",
   "rules_adr_check": [
     "Satisfies boundary-first planning because client, sync API, review queue, and patient record boundaries are explicit.",

@@ -30,6 +30,11 @@ profiles. Those profiles must not be collapsed into skills because a profile is
 an agent identity and operating model, while a skill is a loadable capability or
 workflow.
 
+The user later clarified a stronger boundary for the planning PR workflow:
+`gh-plan-pr` should not exist as a skill. It should be replaced by a planning
+agent profile installed through `awesome-agents`, with any scripts and references
+owned by that agent profile.
+
 ## Positioning Corrections
 
 The user corrected:
