@@ -52,6 +52,9 @@ The user later pointed to the Taste Skill README as a stronger public-facing
 reference because it is more marketable and speaks to the user more directly.
 The requested README direction is to reorganize the page around a clear promise,
 fast install path, practical artifact chooser, and cleaner public presentation.
+After seeing the text-only rewrite, the user pointed out the missing banner
+image. Future README positioning should treat a strong first-screen visual as
+part of the expected public presentation, not optional decoration.
 
 ## Product Memory Shape
 

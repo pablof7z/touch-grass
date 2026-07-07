@@ -1,4 +1,8 @@
 <p align="center">
+  <img src="assets/readme-banner.png" alt="Abstract operational map of agent profiles, routing paths, review gates, and handoff cards" width="100%" />
+</p>
+
+<p align="center">
   <strong>touch-grass</strong><br />
   <em>Operational agent profiles for AI teammates that need to plan, test, coordinate, and ship with the right human judgment points.</em>
 </p>
