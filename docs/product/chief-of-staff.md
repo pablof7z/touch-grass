@@ -70,3 +70,31 @@ Product clarification:
 
 - Workflow capture should not be treated as a command to add bureaucracy.
 - It should help the chief of staff learn repeatable patterns from actual work.
+
+## Public Model-Card Direction
+
+The user requested that each agent profile eventually have a public-facing
+profile README, following the `awesome-agents` convention where
+`agents/<agent-slug>/README.md` complements the runtime `agent.yaml` and powers a
+site model-card page.
+
+For `chief-of-staff`, the user wants the public profile to be more salesy and
+benefit-led than a normal documentation page. Taste Skill was named as the
+reference for posture: strong first impression, immediate usefulness, concrete
+examples, and "what is in it for me" energy without saying that phrase
+explicitly.
+
+Five independent README proposal directions were requested:
+
+- Operating Picture: know what moved, what matters, what is blocked, and what
+  needs user input.
+- Attention Firewall: protect the user's focus by letting low-risk work continue
+  and escalating only meaningful decisions.
+- Workflow Memory: turn repeated user requests into learned operating workflows.
+- Human Judgment Router: route agent work around authority, priority, access,
+  money, reputation, and irreversible-state boundaries.
+- GitHub As The Office: make GitHub the durable source of truth for projects,
+  decisions, open loops, linked repos, active agents, blockers, and reports.
+
+The proposals should use real usable photo banners, not AI-generated images, and
+should stay independent until the user chooses a direction.
