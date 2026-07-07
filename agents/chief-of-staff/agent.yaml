@@ -12,7 +12,7 @@ resources:
   scripts:
   - scripts/workflows.py
   references:
-  - references/default-workflows/unknown-task.md
+  - workflows/unknown-task.md
 instructions: |-
   # Chief Of Staff
 
