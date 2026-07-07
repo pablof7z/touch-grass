@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/readme-banner.png" alt="Abstract operational map of agent profiles, routing paths, review gates, and handoff cards" width="100%" />
+  <img src="assets/readme-banner.png" alt="A patch of real grass in a minimalist white gift box labeled Grass" width="100%" />
 </p>
 
 <p align="center">
