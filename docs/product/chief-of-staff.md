@@ -98,3 +98,9 @@ Five independent README proposal directions were requested:
 
 The proposals should use real usable photo banners, not AI-generated images, and
 should stay independent until the user chooses a direction.
+
+The user rejected the first proposal pass because every draft led with too much
+information: how the agent works, implementation details, install commands, and
+long skimmable sections that did not create desire. Future profile READMEs
+should sell the outcome first. Installation and mechanics belong near the end,
+after the page has made a browsing user interested.
