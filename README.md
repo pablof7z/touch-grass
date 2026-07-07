@@ -1,162 +1,152 @@
+<p align="center">
+  <strong>touch-grass</strong><br />
+  <em>Operational agent profiles for AI teammates that need to plan, test, coordinate, and ship with the right human judgment points.</em>
+</p>
+
+<p align="center">
+  <a href="#install">Install</a> |
+  <a href="#start-here">Start here</a> |
+  <a href="#profiles">Profiles</a> |
+  <a href="#how-it-works">How it works</a> |
+  <a href="#contributing">Contributing</a>
+</p>
+
+<p align="center">
+  <img alt="Profiles: 4" src="https://img.shields.io/badge/profiles-4-111111" />
+  <img alt="Schema: awesome-agents/v1" src="https://img.shields.io/badge/schema-awesome--agents%2Fv1-2f6f5f" />
+  <img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-f3c969" />
+</p>
+
 # touch-grass
 
-**Production-grade agent profiles and skills for teams that demand autonomous agents that actually ship.**
+Most agent setups still make the human carry the operating model: when to plan, when to ask, what to publish, how to hand off, and how much autonomy is safe.
 
-Stop babysitting your AI. `touch-grass` is a curated collection of **operational agent profiles** and **reusable skills** designed for agents that need real autonomy, meaningful agency, and clean collaboration with humans—without becoming deadweight or requiring constant supervision.
+`touch-grass` packages that missing layer as reusable operational agent profiles. Each profile defines a real agent identity, its responsibilities, its decision boundaries, the tools it should use, and the artifacts it should leave behind.
 
-## The Problem
+Use it when you want agents that can make progress without constant supervision, but still stop for human judgment when it actually matters.
 
-Most agent frameworks treat autonomy as a side effect. The result:
-- Agents that need hand-holding for basic decisions
-- Vague decision trails that leave you wondering what happened
-- Wasted human review cycles on low-stakes choices
-- Agents that disappear into rabbit holes instead of shipping
+## Install
 
-## The Solution
-
-`touch-grass` applies proven operational patterns from high-performing teams. Our profiles encode decision-making rules, publication gates, and collaboration boundaries so agents work like competent team members—not oracles that need constant prompting.
-
-**Our bias:** Agents should make progress by default, ship useful artifacts, ask humans only when it matters, and leave a clear trail of decisions.
-
----
-
-## Quick Start
-
-### List available profiles:
+List the available profiles:
 
 ```bash
 npx awesome-agents add pablof7z/touch-grass --list
 ```
 
-### Install the planning agent (Codex):
+Install the planning agent for Codex:
 
 ```bash
 npx awesome-agents add pablof7z/touch-grass --agent planning-agent --harness codex --global
 ```
 
-### Install any profile + harness combo:
+Install any profile and harness combination:
 
 ```bash
 npx awesome-agents add pablof7z/touch-grass --agent chief-of-staff --harness tenex-edge
 ```
 
-Agent profiles are installed from `agents/<slug>/`. Agent-owned scripts and state live under `~/.agents/homes/<slug>/`.
+Profiles install from `agents/<agent-slug>/`. Agent-owned scripts, references, and runtime notes live under `~/.agents/homes/<agent-slug>/`.
 
----
+## Start Here
 
-## The Profiles
+| If you need... | Start with... | Why |
+| --- | --- | --- |
+| A plan before complex implementation | `planning-agent` | Turns a real task into a reviewable planning PR, then decides whether to proceed or pause. |
+| A clear operating picture across agents and projects | `chief-of-staff` | Tracks projects, decisions, blockers, open loops, and agent activity without making the user organize everything. |
+| Black-box iOS flow verification | `ios-tester` | Uses an iOS simulator like a user, without reading source code or product docs. |
+| iOS UX/UI critique | `ios-ux-ui-critic` | Reviews the experienced app, not the implementation, and reports product-level friction. |
 
-### 🎯 `planning-agent`
+## Profiles
 
-**When to use:** Before you implement something complex.
+### `planning-agent`
 
-Creates architecture/design planning PRs that actually save you review time.
+For implementation work that deserves architecture review before code starts.
 
-- **Scans** your repo constraints and codebase patterns
-- **Writes** concise, testable architecture plans
-- **Publishes** hosted review artifacts
-- **Decides** whether to proceed or pause for feedback—autonomously
+It scans repo constraints, writes a concise architecture plan, publishes a planning PR with review artifacts, and makes a ready-or-pause recommendation. For small work, it says a planning PR is not warranted and keeps momentum.
 
-Result: You get a PR with a clear implementation roadmap *before* work begins. No wasted sprints.
+Path: `agents/planning-agent/agent.yaml`
 
-**Location:** `agents/planning-agent/agent.yaml`
+### `chief-of-staff`
 
----
+For users running multiple projects, agents, decisions, and blockers at once.
 
-### 📊 `chief-of-staff`
+It keeps a cross-project operating picture, protects the user's attention, tracks open loops, and maintains workflow memory so recurring requests become easier over time.
 
-**When to use:** When you have multiple agents or projects going at once.
+Path: `agents/chief-of-staff/agent.yaml`
 
-Maintains a real-time operating picture across your projects. Tracks decisions, open loops, linked repos, active agents, and daily reports.
+### `ios-tester`
 
-- **Centralizes** project state so you focus on judgment, not status updates
-- **Automates** recurring request types through script-managed workflows
-- **Publishes** daily reports so you always know what moved
+For black-box iOS app testing through the simulator.
 
-Result: Your team runs like a command center, not a chaos zone.
+It launches the app, exercises the requested flow only through visible UI, captures evidence, and reports pass, fail, blocker, or product feedback. It deliberately avoids source-code inspection.
 
-**Location:** `agents/chief-of-staff/agent.yaml`
+Path: `agents/ios-tester/agent.yaml`
 
----
+### `ios-ux-ui-critic`
 
-### 📱 `ios-tester`
+For product critique of an iOS app experience.
 
-**When to use:** You want black-box iOS testing at scale.
+It uses the app like a user and reviews discoverability, hierarchy, navigation, copy, accessibility, platform fit, and cross-screen consistency. It judges the interface the user sees, not the code behind it.
 
-Uses simulator tooling and project notes to test installed apps like a real user would.
+Path: `agents/ios-ux-ui-critic/agent.yaml`
 
-- **Black-box testing** (not source-code introspection)
-- **Simulator-native** (no brittle UI automation)
-- **User-mindset** testing based on your project notes
+## How It Works
 
-**Location:** `agents/ios-tester/agent.yaml`
+`touch-grass` separates agent profiles from skills.
 
----
+A profile is an operational identity. It says who the agent is, what it owns, what it must not do, where its source of truth lives, what tools it uses, and when a human should be pulled in.
 
-### 🎨 `ios-ux-ui-critic`
+A skill is a reusable capability an agent can load. Skills belong in `skills/<skill-name>/SKILL.md` when added. Operational agents belong in `agents/<agent-slug>/agent.yaml`.
 
-**When to use:** You need UX/UI critique without the product meeting.
+This boundary matters because a planning agent, chief of staff, tester, or critic is not just a prompt. It is a job with durable responsibilities and a repeatable operating model.
 
-Black-box inspection of your iOS app experience, rendered as coherent critique.
+## What Makes A Good Profile
 
-- **Runs on simulator**
-- **Grounds critique** in your project context
-- **Identifies** friction and UX gaps like a senior designer
+- It solves a real operational problem.
+- It has clear authority boundaries.
+- It makes low-risk progress without asking for permission.
+- It pauses for product, architecture, safety, access, or reputation decisions.
+- It leaves durable artifacts instead of hiding important state in chat.
+- It pushes deterministic mechanics into scripts.
+- It stays portable instead of mutating local machine setup.
 
-**Location:** `agents/ios-ux-ui-critic/agent.yaml`
+## Repository Map
 
----
+| Path | Purpose |
+| --- | --- |
+| `agents/<agent-slug>/agent.yaml` | Canonical operational agent definition. |
+| `agents/<agent-slug>/scripts/` | Deterministic automation owned by that agent. |
+| `agents/<agent-slug>/references/` | Agent-specific schemas, notes, and workflow references. |
+| `docs/product/` | Product notes, decisions, corrections, and open questions. |
+| `AGENTS.md` | Repository instructions for agents working on this repo. |
 
-## Repository Philosophy
+## Product Notes
 
-- **Skills compose.** They should work together, not step on each other.
-- **Autonomy with guard rails.** Agents decide low-stakes things; humans decide high-stakes things. Both need to be obvious.
-- **Determinism where it counts.** Repetitive workflows belong in scripts, not prompts.
-- **Sharp instructions.** Skills should be small, clear, and easy for another agent to apply.
+The product model is still evolving. Durable context lives in [`docs/product/`](docs/product/), including:
 
----
-
-## Repository Goals
-
-✅ Build skills and operational agent profiles that compose well  
-✅ Maximize useful autonomy while preserving human review for high-impact decisions  
-✅ Move deterministic mechanics into scripts  
-✅ Keep skill instructions small, sharp, and easy for another agent to apply  
-
----
-
-## What's Inside
-
-- **`agents/`** – Operational agent profiles (reusable agent identities + operating models)
-- **`skills/`** – Composable skills and capabilities
-- **`docs/product/`** – Product thinking, decisions, and boundaries
-- **`scripts/`** – Shared automation and workflow mechanics
-
----
-
-## For Product & Team Context
-
-See [`docs/product/`](docs/product/) for:
-- **`foundations.md`** – Repository purpose, naming, and public positioning
-- **`operational-agent-profiles.md`** – What makes a profile, not a skill
-- **`planning-agent.md`** – Planning workflow and decision boundaries
-- **`chief-of-staff.md`** – Tracking model and workflow memory
-- **`open-questions.md`** – Unresolved problems we're thinking through
-
----
+- [`foundations.md`](docs/product/foundations.md) for public positioning and naming.
+- [`operational-agent-profiles.md`](docs/product/operational-agent-profiles.md) for the profile-vs-skill boundary.
+- [`planning-agent.md`](docs/product/planning-agent.md) for planning workflow rules.
+- [`chief-of-staff.md`](docs/product/chief-of-staff.md) for operating-picture and workflow-memory rules.
+- [`open-questions.md`](docs/product/open-questions.md) for unresolved product questions.
 
 ## Contributing
 
-We're building this for teams that have outgrown generic agent patterns. If you're using operational profiles or skills that work well together, we'd love to see them.
+Contributions should make agents more useful in real work, not just add another prompt.
 
-**Contribution bar:** Your profile or skill should solve a real operational problem and compose cleanly with the others.
+Before adding a profile or skill, decide which artifact it really is:
 
----
+- Add a profile when the artifact defines an agent identity, responsibilities, sources of truth, and operating boundaries.
+- Add a skill when the artifact defines a reusable capability or workflow that different agents can load.
+
+Contribution bar:
+
+- Keep instructions concise.
+- Put fragile or repetitive mechanics in scripts.
+- Return machine-readable errors from scripts when possible.
+- Document input shapes and failure modes in `references/`.
+- Update `docs/product/` when the product model, positioning, or boundaries change.
 
 ## License
 
 MIT
-
----
-
-**Built for teams that expect their agents to ship.**

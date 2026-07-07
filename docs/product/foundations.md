@@ -48,6 +48,11 @@ The user also said:
 
 This is captured as a product signal, not a completed positioning rewrite.
 
+The user later pointed to the Taste Skill README as a stronger public-facing
+reference because it is more marketable and speaks to the user more directly.
+The requested README direction is to reorganize the page around a clear promise,
+fast install path, practical artifact chooser, and cleaner public presentation.
+
 ## Product Memory Shape
 
 The user later corrected the product-notes structure:
