@@ -9,7 +9,7 @@ models:
 - claude-opus
 reasoning_effort: high
 skills:
-- tenex-edge
+- pablof7z/tenex-edge tenex-edge
 home_notes_template: "~/.agents/homes/planning-agent/<project>/notes"
 resources:
   scripts:

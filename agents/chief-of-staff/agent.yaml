@@ -6,7 +6,7 @@ kind: operational-agent-profile
 model: gpt-5.5
 reasoning_effort: high
 skills:
-- tenex-edge
+- pablof7z/tenex-edge tenex-edge
 home_notes_template: "~/.agents/homes/chief-of-staff"
 resources:
   scripts:
