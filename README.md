@@ -2,155 +2,124 @@
   <img src="assets/readme-banner.png" alt="A patch of real grass in a minimalist white gift box labeled Grass" width="100%" />
 </p>
 
-<p align="center">
-  <strong>touch-grass</strong><br />
-  <em>Operational agent profiles for AI teammates that need to plan, test, coordinate, and ship with the right human judgment points.</em>
-</p>
-
-<p align="center">
-  <a href="#install">Install</a> |
-  <a href="#start-here">Start here</a> |
-  <a href="#profiles">Profiles</a> |
-  <a href="#how-it-works">How it works</a> |
-  <a href="#contributing">Contributing</a>
-</p>
-
-<p align="center">
-  <img alt="Profiles: 4" src="https://img.shields.io/badge/profiles-4-111111" />
-  <img alt="Schema: awesome-agents/v1" src="https://img.shields.io/badge/schema-awesome--agents%2Fv1-2f6f5f" />
-  <img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-f3c969" />
-</p>
-
 # touch-grass
 
-Most agent setups still make the human carry the operating model: when to plan, when to ask, what to publish, how to hand off, and how much autonomy is safe.
+Operational agents that know their job.
 
-`touch-grass` packages that missing layer as reusable operational agent profiles. Each profile defines a real agent identity, its responsibilities, its decision boundaries, the tools it should use, and the artifacts it should leave behind.
+AI agents can write code, run tools, and answer questions. The harder problem is
+getting them to act like real collaborators: one plans before risky work, one
+tests the product like a user, one keeps the operating picture clear, and one
+knows when a human decision is actually needed.
 
-Use it when you want agents that can make progress without constant supervision, but still stop for human judgment when it actually matters.
+`touch-grass` is a public collection of reusable agent profiles for that layer.
+
+<p>
+  <img alt="Profiles: 4" src="https://img.shields.io/badge/profiles-4-111111" />
+  <img alt="Schema: awesome-agents/v1" src="https://img.shields.io/badge/schema-awesome--agents%2Fv1-2f6f5f" />
+</p>
 
 ## Install
 
-List the available profiles:
+List what is available:
 
 ```bash
 npx awesome-agents add pablof7z/touch-grass --list
 ```
 
-Install the planning agent for Codex:
+Install a profile:
 
 ```bash
 npx awesome-agents add pablof7z/touch-grass --agent planning-agent --harness codex --global
 ```
 
-Install any profile and harness combination:
+## Agents
+
+### Planning Agent
+
+For work that should not start as blind editing.
+
+The planning agent turns a real implementation request into a reviewable planning
+PR: what will change, which boundaries matter, which alternatives were rejected,
+how certain the plan is, and whether the next move is `ready` or `pause`.
+
+It is for architecture, persistence, migrations, security posture, repo rules,
+rollout, rollback, and user-visible workflow changes.
+
+Try the sample planner without publishing anything:
+
+```bash
+python3 agents/planning-agent/scripts/publish_plan_pr.py examples/field-clinic-plan.json --dry-run --no-install
+```
+
+### Chief Of Staff
+
+For agent-heavy work where the problem is no longer "can an agent do a task?"
+but "what is happening across all these tasks?"
+
+The chief of staff keeps the room legible: active projects, decisions, blockers,
+open loops, priorities, and the few questions that need the user's judgment.
+
+It is not an implementer by default. It protects attention, keeps durable state
+in the right place, and turns repeated requests into workflow memory.
+
+Install it for a tenex-edge flow:
 
 ```bash
 npx awesome-agents add pablof7z/touch-grass --agent chief-of-staff --harness tenex-edge
 ```
 
-Profiles install from `agents/<agent-slug>/`. Agent-owned scripts, references, and runtime notes live under `~/.agents/homes/<agent-slug>/`.
+### iOS Tester
 
-## Start Here
+For "test this flow" when the answer has to come from the app, not the source.
 
-| If you need... | Start with... | Why |
-| --- | --- | --- |
-| A plan before complex implementation | `planning-agent` | Turns a real task into a reviewable planning PR, then decides whether to proceed or pause. |
-| A clear operating picture across agents and projects | `chief-of-staff` | Tracks projects, decisions, blockers, open loops, and agent activity without making the user organize everything. |
-| Black-box iOS flow verification | `ios-tester` | Uses an iOS simulator like a user, without reading source code or product docs. |
-| iOS UX/UI critique | `ios-ux-ui-critic` | Reviews the experienced app, not the implementation, and reports product-level friction. |
+The iOS tester launches the product in a simulator, uses visible UI only, and
+reports pass, fail, blocker, or product feedback. It is explicitly forbidden
+from reading code or product docs to infer behavior.
 
-## Profiles
+Use it when you want evidence from the user's path through the app.
 
-### `planning-agent`
+### iOS UX/UI Critic
 
-For implementation work that deserves architecture review before code starts.
+For iOS product feedback from the experience on screen.
 
-It scans repo constraints, writes a concise architecture plan, publishes a planning PR with review artifacts, and makes a ready-or-pause recommendation. For small work, it says a planning PR is not warranted and keeps momentum.
+The critic reviews hierarchy, navigation, discoverability, copy, accessibility,
+platform fit, empty states, errors, and cross-screen consistency. It judges the
+interface the user sees, not the implementation behind it.
 
-Path: `agents/planning-agent/agent.yaml`
+Use it when a flow technically exists but still feels confusing, heavy, hidden,
+or unfinished.
 
-### `chief-of-staff`
+## What This Prevents
 
-For users running multiple projects, agents, decisions, and blockers at once.
+- Planning hidden in chat instead of reviewable artifacts.
+- Agents asking the human to coordinate every handoff.
+- Tests that pass because the agent read the code instead of using the product.
+- UX critique that explains implementation instead of user friction.
+- Repeated work that never becomes a reusable operating model.
 
-It keeps a cross-project operating picture, protects the user's attention, tracks open loops, and maintains workflow memory so recurring requests become easier over time.
+## Profiles Are Not Skills
 
-Path: `agents/chief-of-staff/agent.yaml`
+A profile is an agent identity: job, authority, boundaries, tools, memory, and
+escalation rules.
 
-### `ios-tester`
+A skill is a reusable capability that different agents can load.
 
-For black-box iOS app testing through the simulator.
+`touch-grass` keeps that boundary because real work needs owners, not just more
+instructions.
 
-It launches the app, exercises the requested flow only through visible UI, captures evidence, and reports pass, fail, blocker, or product feedback. It deliberately avoids source-code inspection.
+## Trust Notes
 
-Path: `agents/ios-tester/agent.yaml`
-
-### `ios-ux-ui-critic`
-
-For product critique of an iOS app experience.
-
-It uses the app like a user and reviews discoverability, hierarchy, navigation, copy, accessibility, platform fit, and cross-screen consistency. It judges the interface the user sees, not the code behind it.
-
-Path: `agents/ios-ux-ui-critic/agent.yaml`
-
-## How It Works
-
-`touch-grass` separates agent profiles from skills.
-
-A profile is an operational identity. It says who the agent is, what it owns, what it must not do, where its source of truth lives, what tools it uses, and when a human should be pulled in.
-
-A skill is a reusable capability an agent can load. Skills belong in `skills/<skill-name>/SKILL.md` when added. Operational agents belong in `agents/<agent-slug>/agent.yaml`.
-
-This boundary matters because a planning agent, chief of staff, tester, or critic is not just a prompt. It is a job with durable responsibilities and a repeatable operating model.
-
-## What Makes A Good Profile
-
-- It solves a real operational problem.
-- It has clear authority boundaries.
-- It makes low-risk progress without asking for permission.
-- It pauses for product, architecture, safety, access, or reputation decisions.
-- It leaves durable artifacts instead of hiding important state in chat.
-- It pushes deterministic mechanics into scripts.
-- It stays portable instead of mutating local machine setup.
-
-## Repository Map
-
-| Path | Purpose |
-| --- | --- |
-| `agents/<agent-slug>/agent.yaml` | Canonical operational agent definition. |
-| `agents/<agent-slug>/scripts/` | Deterministic automation owned by that agent. |
-| `agents/<agent-slug>/references/` | Agent-specific schemas, notes, and workflow references. |
-| `docs/product/` | Product notes, decisions, corrections, and open questions. |
-| `AGENTS.md` | Repository instructions for agents working on this repo. |
-
-## Product Notes
-
-The product model is still evolving. Durable context lives in [`docs/product/`](docs/product/), including:
-
-- [`foundations.md`](docs/product/foundations.md) for public positioning and naming.
-- [`operational-agent-profiles.md`](docs/product/operational-agent-profiles.md) for the profile-vs-skill boundary.
-- [`planning-agent.md`](docs/product/planning-agent.md) for planning workflow rules.
-- [`chief-of-staff.md`](docs/product/chief-of-staff.md) for operating-picture and workflow-memory rules.
-- [`open-questions.md`](docs/product/open-questions.md) for unresolved product questions.
+- Installed profiles may write agent-owned state under `~/.agents/homes/`.
+- The planning-agent dry run is local and does not push, upload, or create a PR.
+- Full planning-agent publishing can create draft PRs, render plan pages, and
+  upload narration through its script.
+- The iOS profiles are black-box by design.
+- No telemetry service is configured in this repo.
+- A `LICENSE` file still needs to be added before the license is explicit.
 
 ## Contributing
 
-Contributions should make agents more useful in real work, not just add another prompt.
+Add profiles for reusable agent jobs. Add skills for reusable capabilities.
 
-Before adding a profile or skill, decide which artifact it really is:
-
-- Add a profile when the artifact defines an agent identity, responsibilities, sources of truth, and operating boundaries.
-- Add a skill when the artifact defines a reusable capability or workflow that different agents can load.
-
-Contribution bar:
-
-- Keep instructions concise.
-- Put fragile or repetitive mechanics in scripts.
-- Return machine-readable errors from scripts when possible.
-- Document input shapes and failure modes in `references/`.
-- Update `docs/product/` when the product model, positioning, or boundaries change.
-
-## License
-
-MIT
+Keep the public promise sharp, put deterministic mechanics in scripts, and update
+`docs/product/` when the product model changes.
