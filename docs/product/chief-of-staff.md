@@ -71,6 +71,18 @@ Product clarification:
 - Workflow capture should not be treated as a command to add bureaucracy.
 - It should help the chief of staff learn repeatable patterns from actual work.
 
+Follow-up decision (2026-07-10):
+
+- Workflows must live in a git repo, not as loose files in
+  `~/.agents/homes/chief-of-staff/workflows/`, so they carry over between
+  machines instead of being pinned to whichever machine first captured them.
+- As soon as the user's tracking repo exists, the chief of staff should move
+  `workflows/` into it and replace the home-directory path with a symlink into
+  the cloned repo.
+- `scripts/workflows.py` should detect on every run whether `workflows/` is a
+  plain directory instead of a symlink and print a loud warning nudging the
+  move, rather than silently tolerating an un-tracked local directory.
+
 ## Public Model-Card Direction
 
 The user requested that each agent profile eventually have a public-facing
