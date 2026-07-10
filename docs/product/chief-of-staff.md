@@ -101,6 +101,28 @@ Correction (2026-07-10, same day):
   and warns on stderr if not; the agent only sees it when it actually runs
   the script, and it goes away permanently once the move is done.
 
+Session-start entrypoint (2026-07-10):
+
+- Replace the static "list workflows at the start of each session" instruction
+  with a single scripted entrypoint the agent runs each session:
+  `scripts/session_start.py`.
+- The script decides what context to inject rather than the instructions
+  hard-coding it. It upserts the home directory, then:
+  - if the home dir is not yet tracked in a git repo (not a symlink), injects
+    `references/SETUP.md` — a runbook that walks the agent through creating/
+    identifying the tracking repo, migrating home contents into
+    `<repo>/.agents/homes/chief-of-staff/`, and symlinking back;
+  - if it is tracked, injects the session brief: tracked location, available
+    workflows, and an optional agent-authored `BRIEF.md` re-surfaced every
+    session.
+- Rationale: a deterministic entrypoint gives one place to steer the agent's
+  self-evolution — onboarding, cron/heartbeat status, proactive tracking,
+  daily-report pointers — without growing the standing instructions the agent
+  carries in context every turn. Grow behavior by adding brief sections in the
+  script, not prose in `agent.yaml`.
+- `BRIEF.md` is the flexible proactive hook: the agent (or user) drops standing
+  reminders / cron state there and they resurface each session.
+
 ## Public Model-Card Direction
 
 The user requested that each agent profile eventually have a public-facing
