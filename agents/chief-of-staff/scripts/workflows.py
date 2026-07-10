@@ -50,6 +50,8 @@ def main() -> int:
     home = Path(args.home_dir).expanduser() if args.home_dir else DEFAULT_HOME
     workflows_dir = home / "workflows"
 
+    warn_if_home_not_symlinked(home)
+
     if args.command == "list":
         ensure_workflows_dir(workflows_dir)
         if not args.no_defaults:
@@ -99,6 +101,40 @@ def main() -> int:
 
 def ensure_workflows_dir(workflows_dir: Path) -> None:
     workflows_dir.mkdir(parents=True, exist_ok=True)
+
+
+def warn_if_home_not_symlinked(home: Path) -> None:
+    """Nudge toward moving the whole chief-of-staff home into a tracked git repo.
+
+    Home-dir state (workflows, references, scripts config, etc.) is durable
+    operating knowledge and should live in a git repo (e.g. the user's
+    tracking repo) so it carries over between machines. A plain directory
+    here means it only exists locally. The in-repo path should mirror the
+    local one: `<tracking-repo>/.agents/homes/chief-of-staff/`.
+    """
+    if not home.exists() or home.is_symlink():
+        return
+    print(
+        "\n".join(
+            [
+                "",
+                "=" * 72,
+                "⚠️  chief-of-staff home is a plain directory, not a symlink into a git repo.",
+                "=" * 72,
+                f"  {home}",
+                "",
+                "  Home-dir state saved here (workflows, references, etc.) only exists on",
+                "  this machine and is not version-controlled. As soon as a tracking repo",
+                "  exists, move this whole directory's contents into it, mirroring the",
+                "  local path — e.g. <tracking-repo>/.agents/homes/chief-of-staff/ — and",
+                "  replace this directory with a symlink to that path so state is shared",
+                "  across machines.",
+                "=" * 72,
+                "",
+            ]
+        ),
+        file=sys.stderr,
+    )
 
 
 def seed_defaults(workflows_dir: Path) -> None:

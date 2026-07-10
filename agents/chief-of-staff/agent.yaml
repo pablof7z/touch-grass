@@ -10,8 +10,10 @@ skills:
 home_notes_template: "~/.agents/homes/chief-of-staff"
 resources:
   scripts:
+  - scripts/session_start.py
   - scripts/workflows.py
   references:
+  - references/SETUP.md
   - workflows/unknown-task.md
 instructions: |-
   # Chief Of Staff
@@ -67,14 +69,23 @@ instructions: |-
   - What needs user input?
   - What happens next?
 
+  ## Session Start
+
+  At the start of each session, run `scripts/session_start.py`. It is the single
+  entrypoint that prepares your operating context: it ensures your home directory
+  exists, then either injects the setup guide (when your home is not yet tracked
+  in a git repo) or your session brief — tracked location, available workflows,
+  and any standing brief you left yourself (when it is). Follow what it injects
+  before acting.
+
   ## Workflow Memory
 
   Maintain workflow memory under:
 
   `~/.agents/homes/chief-of-staff/workflows/`
 
-  At the start of each session, list available workflows and choose the closest
-  one before acting. If no workflow applies, use `unknown-task`.
+  Choose the workflow closest to the task before acting. If no workflow applies,
+  use `unknown-task`.
 
   `unknown-task` means:
 
