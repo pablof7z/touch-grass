@@ -50,7 +50,7 @@ def main() -> int:
     home = Path(args.home_dir).expanduser() if args.home_dir else DEFAULT_HOME
     workflows_dir = home / "workflows"
 
-    warn_if_not_symlinked(workflows_dir)
+    warn_if_home_not_symlinked(home)
 
     if args.command == "list":
         ensure_workflows_dir(workflows_dir)
@@ -103,29 +103,32 @@ def ensure_workflows_dir(workflows_dir: Path) -> None:
     workflows_dir.mkdir(parents=True, exist_ok=True)
 
 
-def warn_if_not_symlinked(workflows_dir: Path) -> None:
-    """Nudge toward moving workflows into a tracked git repo.
+def warn_if_home_not_symlinked(home: Path) -> None:
+    """Nudge toward moving the whole chief-of-staff home into a tracked git repo.
 
-    Workflow memory is durable operating knowledge and should live in a git
-    repo (e.g. the user's tracking repo) so it carries over between
-    machines. A plain directory here means workflows only exist locally.
+    Home-dir state (workflows, references, scripts config, etc.) is durable
+    operating knowledge and should live in a git repo (e.g. the user's
+    tracking repo) so it carries over between machines. A plain directory
+    here means it only exists locally. The in-repo path should mirror the
+    local one: `<tracking-repo>/.agents/homes/chief-of-staff/`.
     """
-    if not workflows_dir.exists() or workflows_dir.is_symlink():
+    if not home.exists() or home.is_symlink():
         return
     print(
         "\n".join(
             [
                 "",
                 "=" * 72,
-                "⚠️  workflows/ is a plain directory, not a symlink into a git repo.",
+                "⚠️  chief-of-staff home is a plain directory, not a symlink into a git repo.",
                 "=" * 72,
-                f"  {workflows_dir}",
+                f"  {home}",
                 "",
-                "  Workflow memory saved here only exists on this machine and is not",
-                "  version-controlled. As soon as a tracking repo exists, move these",
-                "  files into it (e.g. <tracking-repo>/chief-of-staff/workflows/) and",
-                "  replace this path with a symlink to the cloned repo directory so",
-                "  workflows are shared across machines.",
+                "  Home-dir state saved here (workflows, references, etc.) only exists on",
+                "  this machine and is not version-controlled. As soon as a tracking repo",
+                "  exists, move this whole directory's contents into it, mirroring the",
+                "  local path — e.g. <tracking-repo>/.agents/homes/chief-of-staff/ — and",
+                "  replace this directory with a symlink to that path so state is shared",
+                "  across machines.",
                 "=" * 72,
                 "",
             ]

@@ -73,17 +73,6 @@ instructions: |-
 
   `~/.agents/homes/chief-of-staff/workflows/`
 
-  Workflows are durable operating knowledge, not local scratch state: they must
-  live in a git repo so they carry over between machines, not as loose files
-  only in the home directory. As soon as the tracking repository exists, move
-  `workflows/` into it (for example `<tracking-repo>/chief-of-staff/workflows/`)
-  and replace `~/.agents/homes/chief-of-staff/workflows` with a symlink into the
-  cloned repo path. Do this the first time there is both a workflow worth
-  keeping and a tracking repo to put it in; do not wait to be asked.
-  `scripts/workflows.py` checks this on every run and prints a warning when
-  `workflows/` is a real directory instead of a symlink — treat that warning as
-  the nudge to do the move, not something to silence.
-
   At the start of each session, list available workflows and choose the closest
   one before acting. If no workflow applies, use `unknown-task`.
 

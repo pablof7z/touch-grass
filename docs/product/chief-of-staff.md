@@ -83,6 +83,24 @@ Follow-up decision (2026-07-10):
   plain directory instead of a symlink and print a loud warning nudging the
   move, rather than silently tolerating an un-tracked local directory.
 
+Correction (2026-07-10, same day):
+
+- Scope is the whole chief-of-staff home directory
+  (`~/.agents/homes/chief-of-staff/`), not just `workflows/` — everything
+  under home (workflows, references, etc.) is durable operating state that
+  should live in the tracking repo and be symlinked back, not only workflow
+  memory.
+- The in-repo destination should mirror the local path exactly:
+  `<tracking-repo>/.agents/homes/chief-of-staff/`, not an ad hoc
+  `<tracking-repo>/chief-of-staff/workflows/` layout.
+- This must NOT be codified as prose in `agent.yaml`'s `instructions` block —
+  that block is carried in the agent's context on every session forever, and
+  this is a one-time operational nudge, not standing doctrine the agent needs
+  to reason about each turn. Instead, `scripts/workflows.py` alone detects
+  (at runtime, on every invocation) whether the home directory is a symlink
+  and warns on stderr if not; the agent only sees it when it actually runs
+  the script, and it goes away permanently once the move is done.
+
 ## Public Model-Card Direction
 
 The user requested that each agent profile eventually have a public-facing
