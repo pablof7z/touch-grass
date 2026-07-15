@@ -44,6 +44,13 @@ The user emphasized that both profiles must be reusable artifacts in `~/touch-gr
 
 Both agents should avoid reading code entirely. They should interact with the installed app like users through an iOS simulator, use their own notes as prior black-box memory, and report back through tenex-edge while mentioning whoever asked for the work.
 
+Current communications correction (2026-07-15):
+
+- The former `tenex-edge` repository and skill are now `pablof7z/mosaico` and
+  `mosaico`. Runtime profile dependencies and instructions should use Mosaico.
+- The `awesome-agents` installer still names its current harness target
+  `tenex-edge`; that CLI spelling is separate from the repository dependency.
+
 ## Chief Of Staff Profile
 
 The chief of staff is also a reusable operational agent profile.
@@ -53,6 +60,12 @@ Implementation correction:
 - It should live under `agents/chief-of-staff/agent.yaml`.
 - It must not be modeled as a skill.
 - Supporting workflow mechanics should live under `agents/chief-of-staff/scripts/` and `agents/chief-of-staff/references/`.
+
+Later capability extraction (2026-07-15):
+
+- The Chief of Staff's reusable procedural-memory mechanics were extracted into
+  the generic `runbook` skill under `skills/runbook/`.
+- Chief of Staff remains a profile and declares `runbook` as a local skill.
 
 Later correction:
 

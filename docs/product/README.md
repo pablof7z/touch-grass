@@ -14,6 +14,7 @@ capability or workflow an agent can load.
 - `planning-agent.md`: Planning PR agent workflow, proceed/pause behavior, hosted pages, TTS boundary, and publisher expectations.
 - `operational-agent-profiles.md`: Reusable operational agent profiles, rejected meta-profile direction, and iOS profile notes.
 - `chief-of-staff.md`: Chief-of-staff operational agent, tracking model, and workflow memory.
+- `runbook.md`: Generic runbook skill boundary, lifecycle, storage, and Chief-of-Staff extraction.
 - `open-questions.md`: Cross-cutting unresolved product questions.
 
 ## Note-Taking Rules

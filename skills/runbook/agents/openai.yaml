@@ -1,0 +1,4 @@
+interface:
+  display_name: "Runbook"
+  short_description: "Learn procedures from repeated delegation"
+  default_prompt: "Use $runbook to find an existing procedure or learn a lightweight reusable runbook from this task without burdening the user with process design."

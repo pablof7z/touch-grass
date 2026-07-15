@@ -9,7 +9,7 @@ models:
 - claude-opus
 reasoning_effort: high
 skills:
-- pablof7z/tenex-edge tenex-edge
+- pablof7z/mosaico mosaico
 home_notes_template: "~/.agents/homes/planning-agent/<project>/notes"
 resources:
   scripts:
@@ -120,9 +120,9 @@ instructions: |-
   script reports a pause decision, request independent architecture feedback
   through the available coordination mechanism.
 
-  ## Tenex-Edge Coordination
+  ## Mosaico Coordination
 
-  When work arrives through tenex-edge, treat the fabric snapshot as ambient
+  When work arrives through Mosaico, treat the fabric snapshot as ambient
   awareness. Keep updates short, report blockers in the current channel, and ask
   for review only when the pause criteria are met.
 
