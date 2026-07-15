@@ -4,17 +4,19 @@
 
 # touch-grass
 
-Operational agents that know their job.
+Operational agents that know their job. Skills that help them learn the work.
 
 AI agents can write code, run tools, and answer questions. The harder problem is
 getting them to act like real collaborators: one plans before risky work, one
 tests the product like a user, one keeps the operating picture clear, and one
 knows when a human decision is actually needed.
 
-`touch-grass` is a public collection of reusable agent profiles for that layer.
+`touch-grass` is a public collection of reusable agent profiles and
+interoperable skills for that layer.
 
 <p>
   <img alt="Profiles: 4" src="https://img.shields.io/badge/profiles-4-111111" />
+  <img alt="Skills: 1" src="https://img.shields.io/badge/skills-1-2f6f5f" />
   <img alt="Schema: awesome-agents/v1" src="https://img.shields.io/badge/schema-awesome--agents%2Fv1-2f6f5f" />
 </p>
 
@@ -31,6 +33,26 @@ Install a profile:
 ```bash
 npx awesome-agents add pablof7z/touch-grass --agent planning-agent --harness codex --global
 ```
+
+Install a skill:
+
+```bash
+npx skills add pablof7z/touch-grass --skill runbook
+```
+
+## Skills
+
+### Runbook
+
+For recurring work that should get easier each time instead of starting over.
+
+The runbook skill recognizes familiar requests, loads only the closest learned
+procedure, and captures durable lessons after real work. Runbooks remember how a
+kind of task gets done without pretending to be the source of truth for current
+facts, priorities, credentials, or permissions.
+
+It ships with an `unknown-task` fallback and a deterministic script for listing,
+capturing, reviewing, rewriting, retiring, and validating runbooks.
 
 ## Agents
 
@@ -60,7 +82,7 @@ The chief of staff keeps the room legible: active projects, decisions, blockers,
 open loops, priorities, and the few questions that need the user's judgment.
 
 It is not an implementer by default. It protects attention, keeps durable state
-in the right place, and turns repeated requests into workflow memory.
+in the right place, and uses the runbook skill to learn repeated requests.
 
 Install it for a tenex-edge flow:
 
@@ -110,6 +132,8 @@ instructions.
 ## Trust Notes
 
 - Installed profiles may write agent-owned state under `~/.agents/homes/`.
+- The runbook script writes only to the selected runbook directory and has no
+  network side effects.
 - The planning-agent dry run is local and does not push, upload, or create a PR.
 - Full planning-agent publishing can create draft PRs, render plan pages, and
   upload narration through its script.

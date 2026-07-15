@@ -17,6 +17,11 @@ The user clarified:
 - It will also work with `~/touch-grass` agents, which are a work in progress and expected to expand.
 - The chief of staff will be committed to `~/touch-grass`.
 
+Current correction (2026-07-15):
+
+- The communications repository moved from `pablof7z/tenex-edge` to
+  `pablof7z/mosaico`, and the reusable dependency is now the `mosaico` skill.
+
 Implementation correction:
 
 - The chief of staff should exist as a reusable operational agent definition under `agents/chief-of-staff/agent.yaml`.
@@ -70,6 +75,18 @@ Product clarification:
 
 - Workflow capture should not be treated as a command to add bureaucracy.
 - It should help the chief of staff learn repeatable patterns from actual work.
+
+Later extraction and naming correction (2026-07-15):
+
+- The reusable procedural-memory mechanism is now the generic `runbook` skill.
+- `chief-of-staff` remains an operational agent profile because it defines a job,
+  operating model, source-of-truth rules, and boundaries.
+- The profile consumes `runbook` and keeps its agent-specific runbooks under
+  `~/.agents/homes/chief-of-staff/runbooks/`.
+- The generic skill owns compact discovery, the `unknown-task` fallback, capture,
+  review, rewrite, lifecycle, and validation mechanics.
+- The agent-owned workflow script and default workflow are removed after the
+  extraction; their behavior moves into `skills/runbook/`.
 
 ## Public Model-Card Direction
 
