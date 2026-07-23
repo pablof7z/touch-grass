@@ -11,12 +11,11 @@ getting them to act like real collaborators: one plans before risky work, one
 tests the product like a user, one keeps the operating picture clear, and one
 knows when a human decision is actually needed.
 
-`touch-grass` is a public collection of reusable agent profiles and
-interoperable skills for that layer.
+`touch-grass` is a public collection of reusable agent profiles for that layer.
 
 <p>
   <img alt="Profiles: 4" src="https://img.shields.io/badge/profiles-4-111111" />
-  <img alt="Skills: 1" src="https://img.shields.io/badge/skills-1-2f6f5f" />
+  <img alt="Skills: external" src="https://img.shields.io/badge/skills-external-2f6f5f" />
   <img alt="Schema: awesome-agents/v1" src="https://img.shields.io/badge/schema-awesome--agents%2Fv1-2f6f5f" />
 </p>
 
@@ -34,15 +33,15 @@ Install a profile:
 npx awesome-agents add pablof7z/touch-grass --agent planning-agent --harness codex --global
 ```
 
-Install a skill:
+Install the runbook skill used by compatible profiles:
 
 ```bash
-npx skills add pablof7z/touch-grass --skill runbook
+npx skills add pablof7z/skills --skill runbook
 ```
 
-## Skills
+## Shared Skill
 
-### Runbook
+### Runbook from `pablof7z/skills`
 
 For recurring work that should get easier each time instead of starting over.
 
@@ -51,8 +50,9 @@ procedure, and captures durable lessons after real work. Runbooks remember how a
 kind of task gets done without pretending to be the source of truth for current
 facts, priorities, credentials, or permissions.
 
-It ships with an `unknown-task` fallback and a deterministic script for listing,
-capturing, reviewing, rewriting, retiring, and validating runbooks.
+It ships from [pablof7z/skills](https://github.com/pablof7z/skills) with an
+`unknown-task` fallback and a deterministic script for listing, capturing,
+reviewing, rewriting, retiring, and validating runbooks.
 
 ## Agents
 
@@ -132,8 +132,8 @@ instructions.
 ## Trust Notes
 
 - Installed profiles may write agent-owned state under `~/.agents/homes/`.
-- The runbook script writes only to the selected runbook directory and has no
-  network side effects.
+- The external runbook script writes only to the selected runbook directory and
+  has no network side effects.
 - The planning-agent dry run is local and does not push, upload, or create a PR.
 - Full planning-agent publishing can create draft PRs, render plan pages, and
   upload narration through its script.
@@ -143,7 +143,8 @@ instructions.
 
 ## Contributing
 
-Add profiles for reusable agent jobs. Add skills for reusable capabilities.
+Add profiles for reusable agent jobs. Add reusable capabilities to the shared
+skills catalog.
 
 Keep the public promise sharp, put deterministic mechanics in scripts, and update
 `docs/product/` when the product model changes.

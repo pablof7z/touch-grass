@@ -7,7 +7,7 @@ model: gpt-5.5
 reasoning_effort: high
 skills:
 - pablof7z/mosaico mosaico
-- runbook
+- pablof7z/skills runbook
 home_notes_template: "~/.agents/homes/chief-of-staff"
 instructions: |-
   # Chief Of Staff
