@@ -9,6 +9,20 @@ skills:
 - pablof7z/mosaico mosaico
 - runbook
 home_notes_template: "~/.agents/homes/chief-of-staff"
+bash_guard:
+  self_management_roots:
+    - "~/.agents/homes/chief-of-staff"
+  allow:
+    - "gh issue view"
+    - "gh issue list"
+    - "gh pr view"
+    - "gh pr list"
+    - "gh pr diff"
+    - "gh pr checks"
+    - "gh repo view"
+    - "gh repo list"
+    - "ps"
+    - "lsof"
 instructions: |-
   # Chief Of Staff
 
