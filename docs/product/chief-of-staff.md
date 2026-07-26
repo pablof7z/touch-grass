@@ -88,6 +88,60 @@ Later extraction and naming correction (2026-07-15):
 - The agent-owned workflow script and default workflow are removed after the
   extraction; their behavior moves into `skills/runbook/`.
 
+Home directory must be git-tracked (2026-07-10):
+
+- The whole chief-of-staff home directory (`~/.agents/homes/chief-of-staff/`)
+  must live in a git repo, not as loose local files — everything under home
+  (runbooks, references, operating state) is durable operating knowledge, and
+  as loose files it is pinned to whichever machine first captured it.
+- The in-repo destination mirrors the local path exactly:
+  `<tracking-repo>/.agents/homes/chief-of-staff/`, not an ad hoc layout. The
+  home path becomes a symlink into the clone.
+- This must NOT be codified as prose in `agent.yaml`'s `instructions` block —
+  that block is carried in the agent's context on every session forever, and
+  this is a one-time operational nudge, not standing doctrine. Detection
+  happens at runtime instead, and goes away permanently once the move is done.
+
+Session-start entrypoint (2026-07-10):
+
+- Replace the static "list workflows at the start of each session" instruction
+  with a single scripted entrypoint the agent runs each session:
+  `scripts/session_start.py`.
+- The script decides what context to inject rather than the instructions
+  hard-coding it. It upserts the home directory, then:
+  - if the home dir is not yet tracked in a git repo (not a symlink), injects
+    `references/SETUP.md` — a guide that walks the agent through creating/
+    identifying the tracking repo, migrating home contents into
+    `<repo>/.agents/homes/chief-of-staff/`, and symlinking back;
+  - if it is tracked, injects the session brief: tracked location, available
+    runbooks, and an optional agent-authored `BRIEF.md` re-surfaced every
+    session.
+- Rationale: a deterministic entrypoint gives one place to steer the agent's
+  self-evolution — onboarding, cron/heartbeat status, proactive tracking,
+  daily-report pointers — without growing the standing instructions the agent
+  carries in context every turn. Grow behavior by adding brief sections in the
+  script, not prose in `agent.yaml`.
+- `BRIEF.md` is the flexible proactive hook: the agent (or user) drops standing
+  reminders / cron state there and they resurface each session.
+
+Reconciliation with the runbook extraction and `bash_guard` (2026-07-26):
+
+- The entrypoint originally listed *workflows* by importing the agent-owned
+  `scripts/workflows.py`. That script no longer exists — the runbook extraction
+  removed it — so the brief now lists *runbooks* by reading the frontmatter of
+  `<home>/runbooks/*.md` directly.
+- The listing is deliberately read-only. The `runbook` skill owns the store
+  (seeding, capture, lifecycle, validation); the brief only surfaces a compact
+  index, so session start stays fast and side-effect-light.
+- The runtime "home is not tracked" detection now lives solely in
+  `session_start.py`'s setup gate, which supersedes the stderr warning the
+  removed `workflows.py` carried.
+- `bash_guard` keys its unrestricted carve-out on the Bash tool's *cwd*, not on
+  the path being invoked. A session normally starts in a project directory, so
+  the session-start command needs an explicit `allow` entry even though the
+  script itself is installed under the self-management root. Without it the
+  entrypoint is denied every session.
+
 ## Public Model-Card Direction
 
 The user requested that each agent profile eventually have a public-facing
