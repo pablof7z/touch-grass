@@ -9,10 +9,19 @@ skills:
 - pablof7z/mosaico mosaico
 - pablof7z/skills runbook
 home_notes_template: "~/.agents/homes/chief-of-staff"
+resources:
+  scripts:
+  - scripts/session_start.py
+  references:
+  - references/SETUP.md
 bash_guard:
   self_management_roots:
     - "~/.agents/homes/chief-of-staff"
   allow:
+    # The session-start entrypoint. Installed under the self-management root,
+    # but the guard keys on cwd, and a session normally starts in a project
+    # directory — so it needs an explicit allow or it is denied every session.
+    - "python3 ~/.agents/homes/chief-of-staff/scripts/session_start.py"
     - "gh issue view"
     - "gh issue list"
     - "gh pr view"
@@ -76,6 +85,18 @@ instructions: |-
   - What is blocked?
   - What needs user input?
   - What happens next?
+
+  ## Session Start
+
+  At the start of each session, run exactly:
+
+  `python3 ~/.agents/homes/chief-of-staff/scripts/session_start.py`
+
+  It is the single entrypoint that prepares your operating context: it ensures
+  your home directory exists, then either injects the setup guide (when your
+  home is not yet tracked in a git repo) or your session brief — tracked
+  location, available runbooks, and any standing brief you left yourself (when
+  it is). Follow what it injects before acting.
 
   ## Runbooks
 
