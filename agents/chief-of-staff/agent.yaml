@@ -18,10 +18,8 @@ bash_guard:
   self_management_roots:
     - "~/.agents/homes/chief-of-staff"
   allow:
-    # The session-start entrypoint. Installed under the self-management root,
-    # but the guard keys on cwd, and a session normally starts in a project
-    # directory — so it needs an explicit allow or it is denied every session.
-    - "python3 ~/.agents/homes/chief-of-staff/scripts/session_start.py"
+    # Scripts under this profile's own agent home — its `resources:` scripts and
+    # its declared skills — are carved out by path, so they do not belong here.
     - "gh issue view"
     - "gh issue list"
     - "gh pr view"
@@ -104,6 +102,12 @@ instructions: |-
   runbooks under:
 
   `~/.agents/homes/chief-of-staff/runbooks/`
+
+  The skill documents its script by a path relative to the skill directory.
+  Invoke it through your agent home instead, since a session's working
+  directory is normally a project:
+
+  `python3 ~/.agents/homes/chief-of-staff/skills/runbook/scripts/runbooks.py --runbooks-dir ~/.agents/homes/chief-of-staff/runbooks <command>`
 
   Runbooks describe how a kind of task is performed. They do not replace GitHub
   or another authoritative system as the source of truth for current state.

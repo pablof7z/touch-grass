@@ -136,11 +136,17 @@ Reconciliation with the runbook extraction and `bash_guard` (2026-07-26):
 - The runtime "home is not tracked" detection now lives solely in
   `session_start.py`'s setup gate, which supersedes the stderr warning the
   removed `workflows.py` carried.
-- `bash_guard` keys its unrestricted carve-out on the Bash tool's *cwd*, not on
-  the path being invoked. A session normally starts in a project directory, so
-  the session-start command needs an explicit `allow` entry even though the
-  script itself is installed under the self-management root. Without it the
-  entrypoint is denied every session.
+- `bash_guard` originally keyed its unrestricted carve-out on the Bash tool's
+  *cwd*, not on the path being invoked. A session normally starts in a project
+  directory, so the session-start command needed an explicit `allow` entry even
+  though the script itself is installed under the self-management root — and so
+  would every future agent-owned script.
+- Resolved upstream instead (awesome-agents#19, issue #7): the guard now also
+  carves out a command whose *invoked script* resolves under the profile's own
+  agent home, which is where `resources:` scripts and declared skills land. The
+  pinned entry is gone, nothing needs pinning as scripts are added, and the
+  `runbook` skill's script — previously denied outright — works when invoked
+  through the agent-home path the instructions now give.
 
 ## Public Model-Card Direction
 
